@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IOB Loan Status</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f2f5f8; color: #262626; }
+    header { background: #1b1d36; color: #fff; padding: 20px 32px; }
+    header h1 { margin: 0; font-size: 26px; }
+    main { padding: 24px 32px; max-width: 1000px; }
+    .versions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .chip { background: #fff; border-left: 6px solid #6c4b94; padding: 10px 16px; font-size: 15px; }
+    .chip b { display: block; font-size: 22px; color: #1b1d36; }
+    table { border-collapse: collapse; width: 100%; background: #fff; }
+    th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #e3e7ec; }
+    th { background: #005c8a; color: #fff; }
+    footer { color: #53565a; font-size: 13px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<header><h1>IOB Loan Status</h1></header>
+<main>
+  <div class="versions">
+    <div class="chip">Spring Boot<b th:text="${bootVersion}">2.7.18</b></div>
+    <div class="chip">Spring Framework<b th:text="${springVersion}">5.3</b></div>
+    <div class="chip">Java runtime<b th:text="${javaVersion}">17</b></div>
+    <div class="chip">App instance<b th:text="${instance}">0</b></div>
+  </div>
+  <table>
+    <tr><th>Loan</th><th>Customer</th><th>Product</th><th>Amount (INR)</th><th>Status</th></tr>
+    <tr th:each="l : ${loans}">
+      <td th:text="${l.id}"></td><td th:text="${l.customer}"></td><td th:text="${l.product}"></td>
+      <td th:text="${#numbers.formatInteger(l.amountInr, 1, 'COMMA')}"></td><td th:text="${l.status}"></td>
+    </tr>
+  </table>
+  <footer>Sample data. Deployed with cf push on Tanzu Platform.</footer>
+</main>
+</body>
+</html>

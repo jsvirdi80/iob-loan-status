@@ -1,0 +1,13 @@
+---
+applications:
+- name: iob-loan-status
+  memory: 1G
+  instances: 2
+  path: target/iob-loan-status-1.0.0.jar
+  random-route: true
+  buildpacks:
+  - java_buildpack_offline
+  env:
+    # Java 17 runs both the Spring Boot 2.7 "before" app and the Spring Boot 3 "after" app.
+    JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 17.+ } }'
+    JBP_CONFIG_SPRING_AUTO_RECONFIGURATION: '{ enabled: false }'
